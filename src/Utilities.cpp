@@ -1,4 +1,5 @@
 #include "Utilities.h"
+#include <base64.h>
 
 void Utilities::printByteArray(const String label, const byte *byteArray, const size_t size, const bool hex)
 {
@@ -20,4 +21,13 @@ void Utilities::printByteArray(const String label, const byte *byteArray, const 
         }
     }
     Serial.println();
+}
+
+String Utilities::base64UrlEncode(byte *source, const size_t sourceSize)
+{
+    String encoded = base64::encode(source, sourceSize);
+    encoded.replace("\n", "");
+    encoded.replace("+", "-");
+    encoded.replace("/", "_");
+    return encoded;
 }
